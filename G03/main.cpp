@@ -1,55 +1,33 @@
-#include "g03.h"
+#include "G03.h"
 
-int main() {
-    int board[4][4] = {{0}};
-    int score, moveScore;
-    char c;
-
-
-
-    srand(time(NULL));
-
-    printf("Enter 16 numbers making up initial board:\n");
-    readBoard(board);
-
-    score = 0;
-
-    while (gameOver(board) == 0) {
-        printf("\n");
-        printf("Enter a for left, s for down, w for up, d for right, q to quit\n");
-        printBoard(board);
-        printf("Your score is %d.\n", score);
-        printf("> ");
-
-        c = getchar();
-        while (isspace(c)) {
-            c = getchar();
+int main(){
+    int k[4][4]= {0};
+    int moves=0;
+    while(1)
+    {
+        printf("Your want play normal 2048 or different 2048?\n");
+        int choice;
+        printf("  Normal 2048  enter number 1\n");
+        printf("Different 2048 enter number 2\n");
+        printf("     Exit      enter number 3\n");
+        scanf("%d",&choice);
+        if(choice==3)
+            break;
+        switch(choice)
+        {
+        case 1:
+        {
+            regular2048(k,moves);
+            system("cls");
+            break;
         }
-
-        printf("\n");
-
-        if (c == 'q' ) {
-            printf("Good bye - your final score was %d.\n", score);
-            return 0;
+        case 2:
+        {
+            diff2048(k,moves);
+            system("cls");
+            break;
         }
-
-
-            moveScore = 0;
-            if (c == 'a') moveScore = moveLeft(board);
-            else if (c == 's') moveScore = moveDown(board);
-            else if (c == 'w') moveScore = moveUp(board);
-            else if (c == 'd') moveScore = moveRight(board);
-
-
-            if (moveScore == -1)
-                printf("%c is not a legal move in the current position.\n", c);
-            else {
-                insertNewNumber(board);
-                score = score + moveScore;
-            }
-
+        }
     }
-    printBoard(board);
-    printf("Game over - your final score was %d.\n", score);
     return 0;
 }
